@@ -1,23 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import {useState, useRef} from 'react';
+
 
 function App() {
+
+  const [timer ,settimer] = useState(0);
+  let timeid= useRef(null);
+
+  const start_time = ()=>{
+    
+  timeid.current = setInterval(()=>{
+    settimer((prevtime) => prevtime+1);
+  },1000)
+  }
+
+  const stop_time = () =>{
+      clearInterval(timeid.current);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Use ref Assigment</h1>
+      <h3>{timer}</h3>
+      <button onClick={start_time} className="button1" style={{backgroundColor:"green",width:"8%",color:"white",padding:"10px",margin:"10px",border:"none"}}>Start</button>
+      <button onClick={stop_time} className="button1" style={{backgroundColor:"red",width:"8%",color:"white",padding:"10px",padding:"10px",margin:"10px",border:"none"}}>Stop</button>
     </div>
   );
 }
